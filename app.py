@@ -41,7 +41,7 @@ def load_lottie_json(filepath: str):
 PAGE_TITLE = "Digital CV | Ali Momeni"
 PAGE_ICON = ":wave:"
 NAME = "Ali Momeni"
-DESCRIPTION = "Senior Data Analyst, assisting enterprises by supporting data-driven decision-making."
+DESCRIPTION = "As a computer engineering graduate from Shahid Chamran University of Ahvaz, I have focused on applying deep learning and AI to healthcare challenges, particularly in medical image analysis. Throughout my studies, I’ve worked on projects like classifying epilepsy and plant disease images using neural networks, and developing AI-driven robotic systems. I’m passionate about leveraging technology to solve real-world problems, especially in the field of healthcare."
 EMAIL = "alimomeni2000.official@email.com"
 
 st.markdown("""
