@@ -1,0 +1,77 @@
+{
+    "experiences_academic": [
+      {
+        "title": "Teaching Assistant for Software Engineering",
+        "description": "Prepared and presented lectures and recitations, supported term projects, helped students with course materials, and graded homework",
+        "location": "Ahvaz-Iran",
+        "time_period": "Jan-Jul 2023"
+      },
+      {
+        "title": "Teaching Assistant for Fundamentals of Programming",
+        "description": "Managed the teaching assistants team, prepared and presented lectures and recitations, supported term projects.",
+        "location": "Ahvaz-Iran",
+        "time_period": "Jan-Jul 2022"
+      }
+    ],
+    "skills_list": [
+      {
+        "category": "Programming",
+        "skills": "Python, C/C++, Java, R (basic), VHDL/Verilog"
+      },
+      {
+        "category": "Data Processing",
+        "skills": "SQL, pandas, numpy"
+      }
+    ],
+    "certifications": [
+      {
+        "title": "Advanced Learning Algorithms",
+        "description": "Built and trained a neural network with TensorFlow for multi-class classification.",
+        "organization": "Coursera",
+        "url": "https://www.coursera.org/account/accomplishments/verify/3TU4CH69L2SQ",
+        "date": "Feb 2024"
+      }
+    ],
+    "references": [
+      {
+        "name": "Dr. Seyed Enayatallah Alavi",
+        "email": "se.alavi@scu.ac.ir",
+        "position": "Assistant professor, Shahid Chamran University of Ahvaz",
+        "role": "Bachelor's project supervisor"
+      },
+      {
+        "name": "Elham Nikookar",
+        "email": "e.nikookar@scu.ac.ir / nikookar.cse@gmail.com",
+        "position": "Lecturer, Shahid Chamran University of Ahvaz"
+      },
+      {
+        "name": "Dr. Ali Bakhthemat",
+        "email": "bakhthemmat.std@gmail.com",
+        "position": "Lecturer, Shahid Chamran University of Ahvaz",
+        "role": "Bachelor's project supervisor"
+      }
+    ],
+    "education": {
+      "uni_place": [
+        "B.Sc Computer Engineering, Shahid Chamran University of Ahvaz",
+        "Ahvaz-Iran 2019-2023"
+      ],
+      "uni_education": {
+        "GPA": "16.08/20 (3.35/4)",
+        "Thesis": "Classification of medical images of epilepsy patients using deep neural networks",
+        "CGPA_last_two_semesters": "17.70/20 (3.68/4)",
+        "CGPA_specialized_courses": "17.60/20 (3.63/4)",
+        "Thesis_grade": "4/4",
+        "Advisors": ["Dr. Ali Bakhthamat", "Dr. Seyed Enayatallah Alavi"]
+      }
+    },
+    "research_interests": [
+      "Computer vision-based healthcare systems",
+      "Robotic technologies in pharmacy and medicine",
+      "Human-Computer Interaction",
+      "Machine learning and deep learning approaches for medical image analysis",
+      "Remote patient monitoring",
+      "3D medical image reconstruction and visualization"
+    ]
+  }
+  

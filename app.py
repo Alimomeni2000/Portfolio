@@ -5,22 +5,34 @@ from streamlit_lottie import st_lottie
 import base64
 from io import BytesIO
 from reader import *
-from pathlib import Path
 import requests
 import nbformat
 from nbconvert import HTMLExporter
 
+
+# st.set_page_config(
+#     page_title="Digital CV | Ali Momeni",
+#     page_icon="📄"
+# )
+# Define custom background with CSS
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"]{
-background-color: #181b33;
+background-color: #000000;
 opacity: 1;
-background-image:  linear-gradient(30deg, #150d2f 12%, transparent 12.5%, transparent 87%, #150d2f 87.5%, #150d2f), linear-gradient(150deg, #150d2f 12%, transparent 12.5%, transparent 87%, #150d2f 87.5%, #150d2f), linear-gradient(30deg, #150d2f 12%, transparent 12.5%, transparent 87%, #150d2f 87.5%, #150d2f), linear-gradient(150deg, #150d2f 12%, transparent 12.5%, transparent 87%, #150d2f 87.5%, #150d2f), linear-gradient(60deg, #150d2f77 25%, transparent 25.5%, transparent 75%, #150d2f77 75%, #150d2f77), linear-gradient(60deg, #150d2f77 25%, transparent 25.5%, transparent 75%, #150d2f77 75%, #150d2f77);
-background-size: 80px 80px;
-background-position: 0 0, 0 0, 17px 30px, 17px 30px, 0 0, 17px 30px;
+background-image: radial-gradient(#323133 0.9500000000000001px, #000000 0.9500000000000001px);
+background-size: 19px 19px;
+}
+</style>
 """
+
+# Apply custom background style
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
+# st.set_page_config(
+#     page_title="Digital CV | Ali Momeni",
+#     page_icon="📄",)
+@st.cache_data
 def convert_notebook_from_github(raw_url):
     # Fetch the notebook content from the GitHub raw link
     response = requests.get(raw_url)
@@ -37,19 +49,17 @@ def convert_notebook_from_github(raw_url):
         return "Error: Unable to fetch the notebook from GitHub."
 
 def main(url,project_id):
-    st.title(f"Jupyter Notebook Viewer - Project {project_id}")
-    
-    # Use the correct raw URL for the notebook
-    raw_url = url#"https://raw.githubusercontent.com/Alimomeni2000/Black-Friday-Sale/main/Black%20Friday%20Sale.ipynb"
-    
-    # Fetch and display the notebook
-    html_content = convert_notebook_from_github(raw_url)
-    
-    # Use a unique session state key for each project_id to track showing/hiding
-    state_key = f'show_notebook_{project_id}'
-    if state_key not in st.session_state:
-        st.session_state[state_key] = False
-
+    try:
+        raw_url = url        
+        # Fetch and display the notebook
+        html_content = convert_notebook_from_github(raw_url)
+        
+        # Use a unique session state key for each project_id to track showing/hiding
+        state_key = f'show_notebook_{project_id}'
+        if state_key not in st.session_state:
+            st.session_state[state_key] = False
+    except:
+        st.error("File can't open")
     # Column layout for buttons and messages
     col1, col2 = st.columns(2, gap="small")
 
@@ -60,29 +70,52 @@ def main(url,project_id):
         # Add a unique key for each button by using the project_id
         if st.button(button_label, key=f"toggle_notebook_{project_id}"):
             st.session_state[state_key] = not st.session_state[state_key]
+    try:
+        if st.session_state[state_key]:
+            # Display notebook content as HTML
+            st.components.v1.html(html_content, height=800, scrolling=True)
+        else:
+            with col2:
+                st.write("Notebook content is hidden. Click the button to show it.")
+    except: pass
 
-    if st.session_state[state_key]:
-        # Display notebook content as HTML
-        st.components.v1.html(html_content, height=800, scrolling=True)
+
+
+# --- CACHING DATA TO SPEED UP LOADING ---
+@st.cache_data
+def fetch_notebook_from_github(raw_url):
+    response = requests.get(raw_url)
+    if response.status_code == 200:
+        notebook_content = response.text
+        notebook = nbformat.reads(notebook_content, as_version=4)
+        html_exporter = HTMLExporter()
+        body, _ = html_exporter.from_notebook_node(notebook)
+        return body
     else:
-        with col2:
-            st.write("Notebook content is hidden. Click the button to show it.")
+        return "Error: Unable to fetch the notebook from GitHub."
 
+# Load assets like CSS, profile picture, and resume only once.
+@st.cache_resource
+def load_assets():
+    current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
+    css_file = current_dir / "styles" / "main.css"
+    resume_file = current_dir / "assets" / "CV.pdf"
+    profile_pic_path = current_dir / "assets" / "profile-pic.png"
+    with open(css_file) as f:
+        css_content = f.read()
+    with open(resume_file, "rb") as pdf_file:
+        resume_pdf = pdf_file.read()
+    profile_pic = Image.open(profile_pic_path)
+    return css_content, resume_pdf, profile_pic
 
+css_content, resume_pdf, profile_pic = load_assets()
+st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
 
-current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
-css_file = current_dir / "styles" / "main.css"
-resume_file = current_dir / "assets" / "CV.pdf"
-profile_pic_path = current_dir / "assets" / "profile-pic.png"
-
-with open(css_file) as f:
-    st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
-
-with open(resume_file, "rb") as pdf_file:
-    PDFbyte = pdf_file.read()
-
-
-
+# --- CACHE LOTTIE ANIMATIONS ---
+@st.cache_data
+def load_lottie(filepath: str):
+    with open(filepath, "r") as f:
+        return json.load(f)
 
 
 class ResumeApp:
@@ -94,17 +127,15 @@ class ResumeApp:
         self.page_setup()
 
     def page_setup(self):
-        """Set up page settings."""
-        # st.set_page_config(page_title="Digital CV | Ali Momeni", page_icon=":wave:")
         with open(self.css_file) as f:
-            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+            st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
+        
         self.load_resume()
 
     def load_resume(self):
         """Load resume data."""
         with open(self.resume_file, "rb") as pdf_file:
             self.PDFbyte = pdf_file.read()
-
     def load_profile_pic(self):
         """Load and display profile picture."""
         profile_pic = Image.open(self.profile_pic_path)
@@ -134,7 +165,10 @@ class ResumeApp:
         st.markdown("<div id='education'></div>", unsafe_allow_html=True)
         st.title("Education")
         st.write('\n')
-        txt(uni_place[0], uni_place[1],[6,2.5])
+        try:
+            txt(uni_place[0], uni_place[1],[6,2.5])
+        except:
+            pass
         st.markdown(uni_education)
 
 
@@ -210,11 +244,14 @@ class ResumeApp:
 
     def display_projects(self):
         """Display the projects section."""
-        st.title("Projects")
+        st.title("Professional Projects")
         for i in range(len(professional_projects)):
             txt(professional_projects[i][0], professional_projects[i][1], [2.5, 1])
             main(professional_projects[i][2],i)
             st.markdown('<hr style="border: none; border-top: 1px dotted #d6dbdf; margin: 20px 0;" />', unsafe_allow_html=True)
+        st.title("Academic Projects")
+        for i in range(len(academic_projcts)):
+            txt(academic_projcts[i][0], academic_projcts[i][1], [2.5, 1])
 
         st.markdown('<hr style="height:2px;border:none;color:#f2f3f4;background-color:#f2f3f4;" />', unsafe_allow_html=True)
 
@@ -246,7 +283,6 @@ class ResumeApp:
             st_lottie(lottie_animation, width=350, height=350)
         with col1:
             st.markdown(contact_form, unsafe_allow_html=True)
-
     def run(self):
         """Run the Streamlit app."""
         self.display_navbar()
