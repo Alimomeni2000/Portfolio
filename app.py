@@ -17,17 +17,45 @@ from nbconvert import HTMLExporter
 # Define custom background with CSS
 page_bg_img = """
 <style>
-[data-testid="stAppViewContainer"]{
-background-color: #000000;
+[data-testid="stMainBlockContainer"]{
+background-color: #ffffff;
 opacity: 1;
-background-image: radial-gradient(#323133 0.9500000000000001px, #000000 0.9500000000000001px);
-background-size: 19px 19px;
+background-size: 5px 5px;
 }
 </style>
 """
-
+# Custom CSS for shadow effects  
+st.markdown("""  
+<style>  
+.sidebar .sidebar-content {  
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);  
+    background-color: #ffffff;  /* Keep your sidebar background */  
+}  
+[data-testid="stAppViewContainer"] {  
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);  
+} 
+[data-testid="stAlertContainer"]{
+            color:#000000;}  
+</style>  
+""", unsafe_allow_html=True)  
 # Apply custom background style
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
+st.markdown(  
+    """  
+    <style>  
+    .stMainBlockContainer {  
+        /* Background Image Example */  
+        background-size: cover; /* Cover the entire area */  
+        background-repeat: no-repeat; /* Prevent the image from repeating */  
+        padding: 20px; /* Add some inner padding */  
+        border-radius: 8px; /* Optional: rounded corners */  
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Add shadow effect */  
+    }  
+    </style>  
+    """,  
+    unsafe_allow_html=True  
+)  
 
 # st.set_page_config(
 #     page_title="Digital CV | Ali Momeni",
@@ -108,7 +136,7 @@ def load_assets():
     profile_pic = Image.open(profile_pic_path)
     return css_content, resume_pdf, profile_pic
 
-css_content, resume_pdf, profile_pic = load_assets()
+css_content, resume_pdf, profile_pic,= load_assets()
 st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
 
 # --- CACHE LOTTIE ANIMATIONS ---
@@ -158,7 +186,7 @@ class ResumeApp:
 
         st.write('\n')
         self.download_resume_button()
-        st.markdown('<hr style="height:2px;border:none;color:#f2f3f4;background-color:#f2f3f4;" />', unsafe_allow_html=True)
+        st.markdown('<hr style="height:2px;border:none;color:#020304;background-color:#020304;" />', unsafe_allow_html=True)
 
     def display_edcuation(self):
         
@@ -174,7 +202,7 @@ class ResumeApp:
 
         txt(high_place[0],high_place[1],[6,2.5])
         st.markdown(high_education)
-        st.markdown('<hr style="height:2px;border:none;color:#f2f3f4;background-color:#f2f3f4;" />', unsafe_allow_html=True)
+        st.markdown('<hr style="height:2px;border:none;color:#020304;background-color:#020304;" />', unsafe_allow_html=True)
 
 
 
@@ -213,7 +241,7 @@ class ResumeApp:
     def display_research_interests(self):
         st.title("Research Interests")
         st.markdown(research_interests)
-        st.markdown('<hr style="height:2px;border:none;color:#f2f3f4;background-color:#f2f3f4;" />', unsafe_allow_html=True)
+        st.markdown('<hr style="height:2px;border:none;color:#020304;background-color:#020304;" />', unsafe_allow_html=True)
     
     def display_experience(self):
         st.title("Experience")
@@ -221,45 +249,47 @@ class ResumeApp:
         for i in range(len(experiences_academic)):
             txt(experiences_academic[i][0], experiences_academic[i][1], [3.5, 1])
             # if i < len(experince) - 1:
-        st.markdown('<hr style="border: none; border-top: 1px dotted #d6dbdf; margin: 20px 0;" />', unsafe_allow_html=True)
         st.write("### - Professional")
         txt(experiences_professional[0][0], experiences_professional[0][1], [3, 1])
-        st.markdown('<hr style="height:2px;border:none;color:#f2f3f4;background-color:#f2f3f4;" />', unsafe_allow_html=True)
+        st.markdown('<hr style="height:2px;border:none;color:#020304;background-color:#020304;" />', unsafe_allow_html=True)
 
     def display_skills(self):
         """Display skills section."""
         st.title("Skills")
         for s in skills_list:
             txt(s[0], s[1], [1, 2])
-        st.markdown('<hr style="height:2px;border:none;color:#f2f3f4;background-color:#f2f3f4;" />', unsafe_allow_html=True)
+        st.markdown('<hr style="height:2px;border:none;color:#020304;background-color:#020304;" />', unsafe_allow_html=True)
 
     def display_certifications(self):
         """Display certifications section."""
         st.title("Certifications")
         for i in range(len(certifications)):
             txt(certifications[i][0], certifications[i][1], [3.5, 1])
-            if i < len(certifications) - 1:
-                st.markdown('<hr style="border: none; border-top: 1px dotted #d6dbdf; margin: 20px 0;" />', unsafe_allow_html=True)
-        st.markdown('<hr style="height:2px;border:none;color:#f2f3f4;background-color:#f2f3f4;" />', unsafe_allow_html=True)
+        # st.write()
+            # if i < len(certifications) - 1:
+                
+            #     st.markdown('<hr style="border: none; border-top: 1px dotted #d6dbdf; margin: 20px 0;" />', unsafe_allow_html=True)
+        st.markdown('<hr style="height:2px;border:none;color:#020304;background-color:#020304;" />', unsafe_allow_html=True)
 
     def display_projects(self):
         """Display the projects section."""
         st.title("Professional Projects")
         for i in range(len(professional_projects)):
-            txt(professional_projects[i][0], professional_projects[i][1], [2.5, 1])
-            main(professional_projects[i][2],i)
-            st.markdown('<hr style="border: none; border-top: 1px dotted #d6dbdf; margin: 20px 0;" />', unsafe_allow_html=True)
+            txt(professional_projects[i][0], professional_projects[i][1], [3, 1])
+            # main(professional_projects[i][2],i)
+        st.markdown('<hr style="height:2px;border:none;color:#020304;background-color:#020304;" />', unsafe_allow_html=True)
+
         st.title("Academic Projects")
         for i in range(len(academic_projcts)):
-            txt(academic_projcts[i][0], academic_projcts[i][1], [2.5, 1])
+            txt(academic_projcts[i][0], academic_projcts[i][1], [3, 1])
 
-        st.markdown('<hr style="height:2px;border:none;color:#f2f3f4;background-color:#f2f3f4;" />', unsafe_allow_html=True)
+        st.markdown('<hr style="height:2px;border:none;color:#020304;background-color:#020304;" />', unsafe_allow_html=True)
 
     def display_references(self):
         """Display the references section."""
         st.title("References")
         st.markdown(references, unsafe_allow_html=True)
-        st.markdown('<hr style="height:2px;border:none;color:#f2f3f4;background-color:#f2f3f4;" />', unsafe_allow_html=True)
+        st.markdown('<hr style="height:2px;border:none;color:#020304;background-color:#020304;" />', unsafe_allow_html=True)
 
     def display_contact(self):
         """Display the contact section with social media and form."""

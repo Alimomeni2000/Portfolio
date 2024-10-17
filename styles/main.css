@@ -1,19 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap'); 
 :root {
     --primary-color: #d33682;
-    --background-color: transparent; /* Change to transparent */
     --secondary-background-color: #586e75;
-    --text-color: #fff;
+    --text-color: #000000;
     --font: "Source Sans Pro", sans-serif;
+    background-color: #e6e4e4;
 }
 .st-emotion-cache-13ln4jf {
     width: 100%;
-    padding: 6rem 1rem 10rem;
-    max-width: 65rem;
-}
+    padding: 6rem 3rem 10rem;
+    max-width: 67rem;}
+
 body {
+    border-left: 200px;
+    border-right: 200px;
     font-size: 20px;
-    background-color: var(--background-color); /* Use transparent background */
+    color: #000000;
+    background-color: var(--background-color); 
     color: var(--text-color);
 }
 
@@ -21,7 +24,9 @@ body {
     width: 800px;
     margin: 0 auto;
 }
-
+.h4 h1 h2 h3 h5 h6{
+    color: #000000df;
+}
 .navbar {  
     display: flex;  
     justify-content: center;  
@@ -92,12 +97,15 @@ button:hover {
     border: none; /* Remove border */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Softer shadow */
     cursor: pointer; /* Cursor changes to pointer on hover */
-    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    /* transition: background 0.3s, transform 0.3s, box-shadow 0.3s; */
+
 }
 .stDownloadButton > button:hover {
     background: linear-gradient(135deg, #4caf50, #85e085); /* Reverse gradient on hover */
     transform: translateY(-3px); /* Slight lift on hover */
     box-shadow: 0px 6px 10px #000000; /* Stronger shadow on hover */
+    color: #ffffff
+
 }
 .stDownloadButton > button:active {
     transform: translateY(1px); /* Slight press effect on click */
@@ -131,7 +139,9 @@ button:hover {
         /* Hover effect */
 .navbar a:hover {
             background-color: #7bea5a; 
-            color: #000000
+            color: #000000;
+            background-color: #000000;
+
         }
 
         /* Active link */
@@ -142,6 +152,7 @@ button:hover {
 .navbar {
                 flex-direction: column; /* Stack items vertically on small screens */
                 height: auto; /* Adjust height */
+                background-color: #000000;
 }
 
 .navbar a {

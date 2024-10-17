@@ -141,11 +141,12 @@ professional_projects = [
 
 
 
-academic_projcts = [
-    ['''#### **Classification of medical images of epilepsy patients using deep neural networks** 
-    \n - Utilized Pydicom, Scikit-learn, and NumPy for data loading and conversion to numerical arrays. Employed Keras and Tensorflow for the design of CNN models. 
-    \n - **Bachelor’s Thesis**, Professors A. Bakhthamat, S.E. Alavi, 2023
-    ''', '###### Ahvaz-Iran, 2023'],
+academic_projcts =  [  
+    ['''#### **Classification of medical images of epilepsy patients using deep neural networks**   
+    \n - Utilized Pydicom, Scikit-learn, and NumPy for data loading and conversion to numerical arrays. Employed Keras and Tensorflow for the design of CNN models.   
+    \n - **Bachelor’s Thesis**, Professors A. Bakhthamat, S.E. Alavi, 2023  
+    ''',   
+    '###### Ahvaz-Iran, 2023']  ,
 
     ['''#### **Classification of plant disease images using Transfer Learning (AlexNet)** 
     \n - Implemented with Keras and Tensorflow.
@@ -206,15 +207,15 @@ academic_projcts = [
 
 # --- CERTIFICATIONS ---
 certifications = [
-    ['''##### **[Advanced Learning Algorithms](https://www.coursera.org/account/accomplishments/verify/3TU4CH69L2SQ)** 
+    ['''##### **[Advanced Learning Algorithms](https://www.coursera.org/account/accomplishments/verify/3TU4CH69L2SQ)**        
     \n - Built and trained a neural network with TensorFlow for multi-class classification.
     \n - Developed and utilized decision trees and tree ensemble methods.
-    ''', '###### Coursera, Feb 2024'],
+    ''', f'###### Coursera, Feb 2024 \n [download pdf!](https://www.coursera.org/account/accomplishments/certificate/3TU4CH69L2SQ)'],
     
-    ['''####٫ **[Supervised Machine Learning: Regression and Classification](https://www.coursera.org/account/accomplishments/verify/GD5S7QU3S8ZP)** 
+    ['''##### **[Supervised Machine Learning: Regression and Classification](https://www.coursera.org/account/accomplishments/verify/GD5S7QU3S8ZP)** 
     \n - Built machine learning models in Python using NumPy & scikit-learn. 
     \n - Built and trained supervised models for regression and classification tasks.
-    ''', '###### Coursera, Feb 2024'],
+    ''', '###### Coursera, Feb 2024 \n [download pdf!](https://www.coursera.org/account/accomplishments/certificate/GD5S7QU3S8ZP)'],
 ]
 
 # --- REFERENCES ---
