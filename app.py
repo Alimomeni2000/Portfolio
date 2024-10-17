@@ -7,8 +7,9 @@ from io import BytesIO
 from reader import *
 import requests
 import nbformat
-from nbconvert import HTMLExporter
+# from nbconvert import HTMLExporter
 
+st.cache_data.clear()  
 
 # st.set_page_config(
 #     page_title="Digital CV | Ali Momeni",
@@ -60,67 +61,67 @@ st.markdown(
 # st.set_page_config(
 #     page_title="Digital CV | Ali Momeni",
 #     page_icon="📄",)
-@st.cache_data
-def convert_notebook_from_github(raw_url):
-    # Fetch the notebook content from the GitHub raw link
-    response = requests.get(raw_url)
-    if response.status_code == 200:
-        notebook_content = response.text
-        notebook = nbformat.reads(notebook_content, as_version=4)
+# @st.cache_data
+# def convert_notebook_from_github(raw_url):
+#     # Fetch the notebook content from the GitHub raw link
+#     response = requests.get(raw_url)
+#     if response.status_code == 200:
+#         notebook_content = response.text
+#         notebook = nbformat.reads(notebook_content, as_version=4)
 
-        # Convert the notebook to HTML
-        html_exporter = HTMLExporter()
-        body, _ = html_exporter.from_notebook_node(notebook)
+#         # Convert the notebook to HTML
+#         html_exporter = HTMLExporter()
+#         body, _ = html_exporter.from_notebook_node(notebook)
 
-        return body
-    else:
-        return "Error: Unable to fetch the notebook from GitHub."
+#         return body
+#     else:
+        # return "Error: Unable to fetch the notebook from GitHub."
 
-def main(url,project_id):
-    try:
-        raw_url = url        
-        # Fetch and display the notebook
-        html_content = convert_notebook_from_github(raw_url)
+# def main(url,project_id):
+#     try:
+#         raw_url = url        
+#         # Fetch and display the notebook
+#         html_content = convert_notebook_from_github(raw_url)
         
-        # Use a unique session state key for each project_id to track showing/hiding
-        state_key = f'show_notebook_{project_id}'
-        if state_key not in st.session_state:
-            st.session_state[state_key] = False
-    except:
-        st.error("File can't open")
-    # Column layout for buttons and messages
-    col1, col2 = st.columns(2, gap="small")
+#         # Use a unique session state key for each project_id to track showing/hiding
+#         state_key = f'show_notebook_{project_id}'
+#         if state_key not in st.session_state:
+#             st.session_state[state_key] = False
+#     except:
+#         st.error("File can't open")
+#     # Column layout for buttons and messages
+#     col1, col2 = st.columns(2, gap="small")
 
-    with col1:
-        # Create a custom button style
-        button_label = "Click to Show/Hide Notebook"
+#     with col1:
+#         # Create a custom button style
+#         button_label = "Click to Show/Hide Notebook"
         
-        # Add a unique key for each button by using the project_id
-        if st.button(button_label, key=f"toggle_notebook_{project_id}"):
-            st.session_state[state_key] = not st.session_state[state_key]
-    try:
-        if st.session_state[state_key]:
-            # Display notebook content as HTML
-            st.components.v1.html(html_content, height=800, scrolling=True)
-        else:
-            with col2:
-                st.write("Notebook content is hidden. Click the button to show it.")
-    except: pass
+#         # Add a unique key for each button by using the project_id
+#         if st.button(button_label, key=f"toggle_notebook_{project_id}"):
+#             st.session_state[state_key] = not st.session_state[state_key]
+#     try:
+#         if st.session_state[state_key]:
+#             # Display notebook content as HTML
+#             st.components.v1.html(html_content, height=800, scrolling=True)
+#         else:
+#             with col2:
+#                 st.write("Notebook content is hidden. Click the button to show it.")
+#     except: pass
 
 
 
 # --- CACHING DATA TO SPEED UP LOADING ---
-@st.cache_data
-def fetch_notebook_from_github(raw_url):
-    response = requests.get(raw_url)
-    if response.status_code == 200:
-        notebook_content = response.text
-        notebook = nbformat.reads(notebook_content, as_version=4)
-        html_exporter = HTMLExporter()
-        body, _ = html_exporter.from_notebook_node(notebook)
-        return body
-    else:
-        return "Error: Unable to fetch the notebook from GitHub."
+# @st.cache_data
+# def fetch_notebook_from_github(raw_url):
+#     response = requests.get(raw_url)
+#     if response.status_code == 200:
+#         notebook_content = response.text
+#         notebook = nbformat.reads(notebook_content, as_version=4)
+#         html_exporter = HTMLExporter()
+#         body, _ = html_exporter.from_notebook_node(notebook)
+#         return body
+#     else:
+#         return "Error: Unable to fetch the notebook from GitHub."
 
 # Load assets like CSS, profile picture, and resume only once.
 @st.cache_resource
@@ -327,7 +328,6 @@ class ResumeApp:
         self.display_references()
         self.display_contact()
 
-# Run the app
-if __name__ == "__main__":
-    app = ResumeApp()
-    app.run()
+
+app = ResumeApp()
+app.run()
