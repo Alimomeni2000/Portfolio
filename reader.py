@@ -4,7 +4,6 @@ import json
 # --- PAGE CONFIGURATIONS ---
 PAGE_TITLE = "Digital CV | Ali Momeni"
 PAGE_ICON = ":wave:"
-# st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON)
 
 # --- PERSONAL INFORMATION ---
 NAME = "Ali Momeni"
@@ -36,7 +35,6 @@ navbar = """
         <a href="#contact">Contact</a>
     </div>
 """
-st.markdown(navbar, unsafe_allow_html=True)
 
 # --- FUNCTIONS ---
 def txt(a, b, num):
@@ -248,4 +246,4 @@ contact_form = """
     <button type="submit">Send</button>
 </form>
 """
-st.markdown(contact_form, unsafe_allow_html=True)
+

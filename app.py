@@ -11,10 +11,10 @@ import nbformat
 
 st.cache_data.clear()  
 
-# st.set_page_config(
-#     page_title="Digital CV | Ali Momeni",
-#     page_icon="📄"
-# )
+st.set_page_config(
+    page_title="Digital CV | Ali Momeni",
+    page_icon="📄"
+)
 # Define custom background with CSS
 page_bg_img = """
 <style>
@@ -58,70 +58,6 @@ st.markdown(
     unsafe_allow_html=True  
 )  
 
-# st.set_page_config(
-#     page_title="Digital CV | Ali Momeni",
-#     page_icon="📄",)
-# @st.cache_data
-# def convert_notebook_from_github(raw_url):
-#     # Fetch the notebook content from the GitHub raw link
-#     response = requests.get(raw_url)
-#     if response.status_code == 200:
-#         notebook_content = response.text
-#         notebook = nbformat.reads(notebook_content, as_version=4)
-
-#         # Convert the notebook to HTML
-#         html_exporter = HTMLExporter()
-#         body, _ = html_exporter.from_notebook_node(notebook)
-
-#         return body
-#     else:
-        # return "Error: Unable to fetch the notebook from GitHub."
-
-# def main(url,project_id):
-#     try:
-#         raw_url = url        
-#         # Fetch and display the notebook
-#         html_content = convert_notebook_from_github(raw_url)
-        
-#         # Use a unique session state key for each project_id to track showing/hiding
-#         state_key = f'show_notebook_{project_id}'
-#         if state_key not in st.session_state:
-#             st.session_state[state_key] = False
-#     except:
-#         st.error("File can't open")
-#     # Column layout for buttons and messages
-#     col1, col2 = st.columns(2, gap="small")
-
-#     with col1:
-#         # Create a custom button style
-#         button_label = "Click to Show/Hide Notebook"
-        
-#         # Add a unique key for each button by using the project_id
-#         if st.button(button_label, key=f"toggle_notebook_{project_id}"):
-#             st.session_state[state_key] = not st.session_state[state_key]
-#     try:
-#         if st.session_state[state_key]:
-#             # Display notebook content as HTML
-#             st.components.v1.html(html_content, height=800, scrolling=True)
-#         else:
-#             with col2:
-#                 st.write("Notebook content is hidden. Click the button to show it.")
-#     except: pass
-
-
-
-# --- CACHING DATA TO SPEED UP LOADING ---
-# @st.cache_data
-# def fetch_notebook_from_github(raw_url):
-#     response = requests.get(raw_url)
-#     if response.status_code == 200:
-#         notebook_content = response.text
-#         notebook = nbformat.reads(notebook_content, as_version=4)
-#         html_exporter = HTMLExporter()
-#         body, _ = html_exporter.from_notebook_node(notebook)
-#         return body
-#     else:
-#         return "Error: Unable to fetch the notebook from GitHub."
 
 # Load assets like CSS, profile picture, and resume only once.
 @st.cache_resource
@@ -211,12 +147,36 @@ class ResumeApp:
         """Add a button to download the resume."""
         col1, col2 = st.columns(2, gap="small")
         with col1:
-            st.download_button(
-                label="📄 Download Resume",
-                data=self.PDFbyte,
-                file_name="Ali_Momeni_Resume.pdf",
-                mime="application/octet-stream",
-            )
+            resume_link = "https://docs.google.com/document/d/18rEjwRZ8yOaSlklZ2P5Acg0saMESWrux/export?format=pdf"  
+
+# Use st.markdown to create a button-style link  
+            st.markdown(  
+    f"""  
+    <a href="{resume_link}" target="_blank" style="text-decoration: none;">  
+        <div style="  
+            display: inline-block;   
+            padding: 9px 16px;   
+            background: linear-gradient(45deg, #4CAF50, #81C784);   
+            color: white;   
+            border-left:1inpx;
+            border-radius: 25px;   
+            font-weight: bold;   
+            text-align: center;   
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);   
+            transition: all 0.3s ease;  
+        ">  
+           📄 Download Resume  
+        </div>  
+    </a>  
+    <style>  
+        a div:hover {{  
+            background: linear-gradient(45deg, #388E3C, #66BB6A);  
+            transform: scale(1.05);  
+        }}  
+    </style>  
+    """,  
+    unsafe_allow_html=True  
+) 
         with col2:
             self.display_email()
 
@@ -326,7 +286,7 @@ class ResumeApp:
         self.display_certifications()
         self.display_projects()
         self.display_references()
-        self.display_contact()
+        # self.display_contact()
 
 
 app = ResumeApp()
