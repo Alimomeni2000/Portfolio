@@ -5,8 +5,9 @@ from streamlit_lottie import st_lottie
 import base64
 from io import BytesIO
 from reader import *
-import requests
-import nbformat
+
+# import requests
+# import nbformat
 # from nbconvert import HTMLExporter
 
 st.cache_data.clear()  
@@ -78,9 +79,9 @@ st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
 
 # --- CACHE LOTTIE ANIMATIONS ---
 @st.cache_data
-def load_lottie(filepath: str):
-    with open(filepath, "r") as f:
-        return json.load(f)
+def get_image_as_base64(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
 
 
 class ResumeApp:
@@ -94,8 +95,7 @@ class ResumeApp:
     def page_setup(self):
         with open(self.css_file) as f:
             st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
-        
-        self.load_resume()
+     
 
     def load_resume(self):
         """Load resume data."""
@@ -255,19 +255,33 @@ class ResumeApp:
     def display_contact(self):
         """Display the contact section with social media and form."""
         st.title("Contact")
-        list_socialmedia_animation = {
+        list_socialmedia = {
             'linkedin': 'https://www.linkedin.com/in/ali-momeni-b490bb206/',
             'github': 'https://github.com/Alimomeni2000/',
             'telegram': 'https://t.me/alimomeni00',
             'instagram': 'https://www.instagram.com/alimomeni9979',
         }
-        cols = st.columns(len(list_socialmedia_animation))
-        for col, (platform, url) in zip(cols, list_socialmedia_animation.items()):
-            lottie_animation = load_lottie_json(f'./assets/{platform}.json')
-            with col:
-                st_lottie(lottie_animation, width=100, height=100)
-                st.markdown(f'<a href="{url}" target="_blank"></a>', unsafe_allow_html=True)
+        # Display your social media icons  
+        cols = st.columns(len(list_socialmedia))  
 
+
+        for col, (platform, url) in zip(cols, list_socialmedia.items()):
+            with col:
+                image_path = f'./assets/{platform}.png'  # Ensure this path is correct
+                try:
+                    # Convert the image to base64
+                    img_base64 = get_image_as_base64(image_path)
+                    
+                    # Display clickable image
+                    st.markdown(f"""
+                        <a href="{url}" target="_blank">
+                            <img src="data:image/png;base64,{img_base64}" alt="{platform}" style="width:100px; height:100px; object-fit:cover;">
+                        </a>
+                    """, unsafe_allow_html=True)
+
+                except Exception as e:
+                    st.error(f"Error loading image: {e}")
+        st.write('\n')
         col1, col2 = st.columns([2, 1])
         with col2:
             lottie_animation = load_lottie_json('./assets/Animation - 1728895738988.json')
@@ -286,8 +300,63 @@ class ResumeApp:
         self.display_certifications()
         self.display_projects()
         self.display_references()
-        # self.display_contact()
+        self.display_contact()
+        footer = """  
+            <style>  
+                .footer {  
+                    position: fixed;  
+                    left: 0;  
+                    bottom: 0;  
+                    width: 100%;  
+                    background-color: #f1f1f1;  
+                    text-align: center;  
+                    padding: 10px;  
+                    font-size: 12px;  
+                    color: #555;  
+                }  
+            </style>  
+            <div class="footer">  
+                © 2024 Your Ali Momeni. All rights reserved.  
+            </div>  
+        """  
 
+        # Render the footer  
+        st.markdown(footer, unsafe_allow_html=True)  
+        st.markdown(  
+        """  
+        <style>/* Fixed "Go Up" button on the right side */
+        .go-up-btn {  
+            position: fixed;  
+            right: 20px;  
+            bottom: 50px;  
+            background-color: #333;  
+            color: white;  
+            padding: 10px 20px;  
+            border-radius: 5px;  
+            text-decoration: none;  
+            z-index: 1000;  /* Keep above other elements */  
+            font-size: 14px;  
+            transition: background-color 0.3s;  
+        }  
+        .go-up-btn:hover {  
+            background-color: #575757;  
+        }  
+        </style>  
+
+        <!-- "Go Up" button -->
+        <a href="#about" class="go-up-btn" id="go-up-btn">Go Up</a>  
+
+        <script>
+        // JavaScript function to scroll to the top when "Go Up" is clicked
+        document.getElementById("go-up-btn").onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        </script>
+        """,  
+        unsafe_allow_html=True  
+    )  
 
 app = ResumeApp()
 app.run()
+
+#

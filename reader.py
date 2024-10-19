@@ -21,20 +21,53 @@ EDUCATION_URLS = {
     "Dr. Ali Bakhthamat": "https://scholar.google.com/citations?user=7bewisgAAAAJ&hl=en&oi=ao",
     "Dr. Seyed Enayatallah Alavi": "https://scholar.google.com/citations?user=-xRyl_IAAAAJ&hl=en",
 }
+navbar = """  
+    <style>  
+        .navbar {  
+            background-color: black; /* Set background color to black */  
+            color: white; /* Default text color */  
+            padding: 15px; /* Optional: add some padding */  
+            position: sticky; /* Use sticky positioning */  
+            top: 0; /* Stay at the top of its container */  
+            z-index: 1000; /* Ensure it overlaps other content */  
+        }  
 
-# --- NAVBAR ---
-navbar = """
-    <div class="navbar">
-        <a href="#about" class="active">About</a>
-        <a href="#education">Education</a>
-        <a href="#research_interests">Research Interests</a>
-        <a href="#skills">Skills</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#projects">Projects</a>
-        <a href="#references">References</a>
-        <a href="#contact">Contact</a>
-    </div>
-"""
+        .navbar a {  
+            text-decoration: none; /* Remove underline from links */  
+            color: white; /* Set text color to white */  
+            margin-right: 15px; /* Space between links */  
+            transition: color 0.3s; /* Smooth transition for hover effect */  
+        }  
+
+        .navbar a:hover {  
+            color: red; /* Change text color to red on hover */  
+        }  
+
+        .navbar a.active {  
+            font-weight: bold; /* Highlight the active link */  
+            color: red; /* Optional: you can keep it red or any color for active link */  
+        }  
+
+        /* Sample content */  
+        .content {  
+            height: 2000px; /* Make the content tall enough to scroll */  
+            padding: 20px;  
+            background-color: #f0f0f0; /* Light background for content */  
+        }  
+    </style>  
+         
+    </style>  
+    <div class="navbar">  
+        <a href="#about" class="active">About</a>  
+        <a href="#education">Education</a>  
+        <a href="#research_interests">Research Interests</a>  
+        <a href="#skills">Skills</a>  
+        <a href="#certifications">Certifications</a>  
+        <a href="#projects">Projects</a>  
+        <a href="#references">References</a>  
+        <a href="#contact">Contact</a>  
+    </div>  
+"""  
 
 # --- FUNCTIONS ---
 def txt(a, b, num):

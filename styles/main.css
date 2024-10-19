@@ -9,7 +9,7 @@
 .st-emotion-cache-13ln4jf {
     width: 100%;
     padding: 6rem 3rem 10rem;
-    max-width: 67rem;}
+    max-width: 70rem;}
 
 body {
     border-left: 200px;
@@ -27,30 +27,20 @@ body {
 .h4 h1 h2 h3 h5 h6{
     color: #000000df;
 }
-.navbar {  
-    display: flex;  
-    justify-content: center;  
-    background-color: #282c34;  /* Dark background for contrast */  
-    padding: 12px 0;  /* Padding for better appearance */  
-    border-radius: 5px;  /* Rounded corners */  
-}  
+
 .navbar ul {  
+    color:aqua;
+
     list-style-type: none; /* Remove bullets */  
     padding: 0; /* Remove padding */  
     margin: 0; /* Remove margin */  
     display: flex; /* Use flexbox for horizontal layout */  
 }  
 .navbar li {  
-    margin: 0 15px; /* Space between items */  
-}  
-.navbar a {  
-    text-decoration: none; /* Remove underline */  
-    color: #ffffff; /* White text color */  
-    font-weight: 500; /* Semi-bold font */  
-    transition: color 0.3s ease; /* Transition effect */  
-}  
-.navbar a:hover {  
-    color: #61dafb; /* Light-blue color on hover */  
+    color:aqua;
+
+    margin: 0 15px; 
+    background-color: #d33682;/* Space between items */  
 }  
 
 form {
